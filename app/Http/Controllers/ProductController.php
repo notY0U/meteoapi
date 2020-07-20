@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+
+use App\Services\Weather;
 use App\Product;
 use Illuminate\Http\Request;
 
@@ -14,7 +16,12 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+    //     
+        $weather = Weather::currentWeather($city)->get('conditionCode');
+
+        // dd($weather);
+
+        return view('product.index', ['weather' => $weather]);
     }
 
     /**
@@ -22,9 +29,12 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $city = $request->city;
+
+        return view('product.create');
+        
     }
 
     /**

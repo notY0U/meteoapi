@@ -18,8 +18,8 @@ class CreateProductsTable extends Migration
             $table->string('sku', 64);
             $table->string('name', 64);
             $table->decimal('price', 5, 2);
-            $table->unsignedBigInteger('tag_id');
-            $table->foreign('tag_id')->references('id')->on('tags');
+            $table->string('tag', 64);
+         
 
             $table->timestamps();
         });
