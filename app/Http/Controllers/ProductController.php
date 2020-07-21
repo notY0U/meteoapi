@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 
 use App\Services\Weather;
+use App\Services\City;
 use App\Product;
 use Illuminate\Http\Request;
+use Validator;
 
 class ProductController extends Controller
 {
@@ -18,7 +20,9 @@ class ProductController extends Controller
     {
 
         $weather = Weather::currentWeather($request->city)->get('conditionCode');
-        $city = $request->city;
+        // dd($weather);
+
+        $city = City::city($request->city);
         $products=Product::where('tag', $weather)->get();
         return view('product.index', ['weather' => $weather, 'city' => $city, 'products'=> $products]);
 
