@@ -32,12 +32,12 @@ class ProductController extends Controller
             return redirect()->back()->withErrors($validator);
         }
 
-        // $isCity = AllCities::check_city($request->city); //work in progress
-        // dd($isCity);
+        $isCity = AllCities::check_city($request->city); //work in progress
+        dd($isCity);
        
 
 
-        $weather = Weather::currentWeather($request->cityy)->get('conditionCode');
+        $weather = Weather::currentWeather($request->city)->get('conditionCode');
         $city = City::city($request->city);
         $products = Product::where('tag', $weather)->offset(0)->limit(2)->get();
         $recommend = json_encode(['city' => $city, 'current_weather' => $weather, 'recommended_products'=>$products]);
