@@ -1,11 +1,10 @@
-TESTER
-index
-
-<br>
-<br>
 <br>
 <hr>
-<title></title>
+
+<title>  WeatherReady </title>
+<small>source data from:</small> 	&nbsp; © Lietuvos hidrometeorologijos tarnyba <br>
+    
+    <br><hr>
 <form action="{{route('product.index')}}">
 
     <input type="text" name="city">
@@ -14,7 +13,7 @@ index
 </form>
 
 
-<br>
+
 
 
 
