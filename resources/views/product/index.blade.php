@@ -1,10 +1,11 @@
 TESTER
+index
 
 <br>
 <br>
 <br>
 <hr>
-
+<title></title>
 <form action="{{route('product.index')}}">
 
     <input type="text" name="city">
@@ -12,10 +13,9 @@ TESTER
 
 </form>
 
-{{$weather}} in {{$city}}
+
 <br>
 
-@foreach($products as $product)
-{{$product->name}} <br>
 
-@endforeach
+
+{{dd(json_decode($recommend))}}
