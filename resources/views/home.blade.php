@@ -1,23 +1,17 @@
-@extends('layouts.app')
 
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
+<br><hr>
 
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
+<title>  WeatherReady </title>
+<small>source data from:</small> &nbsp; © Lietuvos hidrometeorologijos tarnyba 
+ <br><hr>
 
-                    {{ __('You are logged in!') }}
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-@endsection
+ <form action="{{route('product.index')}}">
+
+    <input type="text" name="city">
+    <button type="submit">Get Recommendation</button>
+
+</form>
+<strong>
+
+    naudokite tik tikrus miestų pavadinimus be lietiviškų rašmenų ar skaičių
+</strong>

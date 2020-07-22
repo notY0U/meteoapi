@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
-
-use App\Services\Weather;
 use App\Product;
+use App\Services\City;
+use App\Services\Weather;
+use App\Services\AllCities;
 use Illuminate\Http\Request;
+
+use Validator;
 
 class ProductController extends Controller
 {
@@ -14,14 +17,32 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Weather $weather, Request $request)
     {
-    //     
-        $weather = Weather::currentWeather($city)->get('conditionCode');
 
-        // dd($weather);
+        
+        $info ='naudokite tik tikrus miestų pavadinimus be lietiviškų rašmenų ar skaičių';
 
-        return view('product.index', ['weather' => $weather]);
+
+        // check if city exsist in API
+        $isCity = AllCities::check_city($request->city);
+        if($isCity == 'blogai'){
+            return view('home', [$info]);
+        }else               
+       
+        // get original city name
+        $city = City::city($isCity);
+
+        // get current weather for the location
+        $weather = Weather::currentWeather($isCity)->get('conditionCode');
+
+        //get recommended products for the weather
+        $products = Product::where('tag', $weather)->offset(0)->limit(2)->get();
+        $recommend = json_encode(['city' => $city, 'current_weather' => $weather, 'recommended_products'=>$products]);
+     
+        
+        return view('product.index', ['recommend'=>$recommend]);
+
     }
 
     /**
@@ -29,67 +50,5 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
-    {
-        $city = $request->city;
 
-        return view('product.create');
-        
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Product  $product
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Product $product)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Product  $product
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Product $product)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Product  $product
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Product $product)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Product  $product
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Product $product)
-    {
-        //
-    }
 }
