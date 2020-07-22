@@ -6,9 +6,7 @@ use App\Product;
 use App\Services\City;
 use App\Services\Weather;
 use App\Services\AllCities;
-use Hamcrest\Core\AllOf;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
 
 use Validator;
 
@@ -22,32 +20,28 @@ class ProductController extends Controller
     public function index(Weather $weather, Request $request)
     {
 
-        $validator = Validator::make($request->all(),
-            [
-                'city' => ['required', 'min:3', 'max:64'],
-            ]
-        );
-        if ($validator->fails()) {
-            $request->flash();
-            return redirect()->back()->withErrors($validator);
-        }
-        $info ='naudokite tik tikrus miestu pavadinimus be lietivsku rasmenu';
+        
+        $info ='naudokite tik tikrus miestų pavadinimus be lietiviškų rašmenų ar skaičių';
 
+
+        // check if city exsist in API
         $isCity = AllCities::check_city($request->city);
         if($isCity == 'blogai'){
-            return view('home', ['info' => $info]);
-        }else               //work in progress
-        // dd($isCity);
+            return view('home', [$info]);
+        }else               
        
-
-
-        $weather = Weather::currentWeather($isCity)->get('conditionCode');
+        // get original city name
         $city = City::city($isCity);
+
+        // get current weather for the location
+        $weather = Weather::currentWeather($isCity)->get('conditionCode');
+
+        //get recommended products for the weather
         $products = Product::where('tag', $weather)->offset(0)->limit(2)->get();
         $recommend = json_encode(['city' => $city, 'current_weather' => $weather, 'recommended_products'=>$products]);
      
         
-        return view('product.index', ['recommend' => $recommend]);
+        return view('product.index', ['recommend'=>$recommend]);
 
     }
 
