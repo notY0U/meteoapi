@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', ' © Lietuvos hidrometeorologijos tarnyba') }}</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -24,7 +24,7 @@
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+                    {{ config('app.name', ' © Lietuvos hidrometeorologijos tarnyba') }}
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -73,6 +73,38 @@
         </nav>
 
         <main class="py-4">
+        <div class="container">
+                       <div class="row justify-content-center">
+                           <div class="col-md-9">
+                               @if ($errors->any())
+                               <div class="alert">
+                                   <ul class="list-group">
+                                       @foreach ($errors->all() as $error)
+                                           <li class="list-group-item list-group-item-danger">{{ $error }}</li>
+                                       @endforeach
+                                   </ul>
+                               </div>
+                               @endif
+                           </div>
+                       </div>
+                   </div>
+                   <div class="container">
+                       <div class="row justify-content-center">
+                           <div class="col-md-9">
+                               @if(session()->has('success_message'))
+                                   <div class="alert alert-success" role="alert">
+                                       {{session()->get('success_message')}}
+                                   </div>
+                               @endif
+                              
+                               @if(session()->has('info_message'))
+                                   <div class="alert alert-info" role="alert">
+                                       {{session()->get('info_message')}}
+                                   </div>
+                               @endif
+                           </div>
+                       </div>
+                   </div>
             @yield('content')
         </main>
     </div>
