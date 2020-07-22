@@ -40,8 +40,9 @@ class ProductController extends Controller
         $products = Product::where('tag', $weather)->offset(0)->limit(2)->get();
         $recommend = json_encode(['city' => $city, 'current_weather' => $weather, 'recommended_products'=>$products]);
      
-        
-        return view('product.index', ['recommend'=>$recommend]);
+        return response()->json($recommend);
+
+        // return view('product.index', ['recommend'=>$recommend]);
 
     }
 
