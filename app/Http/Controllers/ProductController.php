@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Product;
-use App\Services\City;
+
 use App\Services\Weather;
+use App\Services\City;
+use App\Product;
 use Illuminate\Http\Request;
 use Validator;
 
@@ -15,39 +16,22 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index( Request $request,Weather $weather)
+    public function index(Weather $weather, Request $request)
     {
 
-        $validator = Validator::make($request->all(),
-            [
-                'city' => ['required', 'min:3', 'max:64'],
-            ]
-        );
-        if ($validator->fails()) {
-            $request->flash();
-            return redirect()->back()->withErrors($validator);
-        }
+        $weather = Weather::currentWeather($request->city)->get('conditionCode');
+        // dd($weather);
 
-            $weather = Weather::currentWeather($request->city)->get('conditionCode');
-
-            $city = City::city($request->city);
-            $products = Product::where('tag', $weather)->get()->toJson();
-
-            // dd($products);
-
-
-            return view('product.index', ['weather' => $weather, 'city' => $city, 'products' => $products]);
-        // } else {
-
-        //     return view('product.start');
-        // }
+        $city = City::city($request->city);
+        $products=Product::where('tag', $weather)->get();
+        return view('product.index', ['weather' => $weather, 'city' => $city, 'products'=> $products]);
 
     }
-
+    
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-
+    
 }

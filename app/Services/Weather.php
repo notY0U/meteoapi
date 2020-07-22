@@ -15,10 +15,10 @@ class Weather {
          */   
 
         $weather = array_map(function($array){
-            return  ['forecastTimeUtc' => $array['forecastTimeUtc'],'conditionCode' => $array['conditionCode']];
+            return ['forecastTimeUtc' => $array['forecastTimeUtc'],'conditionCode' => $array['conditionCode']];
             
-        }, Http::get( 'https://api.meteo.lt/v1/places/'.$argument.'/forecasts/long-term')->json()['forecastTimestamps'] );
-
+        }, Http::get( 'https://api.meteo.lt/v1/places/'.$argument.'/forecasts/long-term')->json()['forecastTimestamps']);
+        
         $current_weather = collect($weather[3])->only('conditionCode');
 
         return $current_weather;
@@ -26,3 +26,5 @@ class Weather {
     }
 
 }
+
+        // dd($current_weather);
