@@ -13,8 +13,13 @@
                             {{ session('status') }}
                         </div>
                     @endif
+                    <form action="{{route('product.index')}}">
 
-                    {{ __('You are logged in!') }}
+    <input type="text" name="city">
+    <button type="submit">Get Recommendation</button>
+
+</form>
+
                 </div>
             </div>
         </div>

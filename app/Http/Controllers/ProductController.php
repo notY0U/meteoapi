@@ -7,7 +7,6 @@ use App\Services\Weather;
 use App\Services\City;
 use App\Product;
 use Illuminate\Http\Request;
-use Validator;
 
 class ProductController extends Controller
 {
@@ -24,6 +23,7 @@ class ProductController extends Controller
 
         $city = City::city($request->city);
         $products=Product::where('tag', $weather)->get();
+
         return view('product.index', ['weather' => $weather, 'city' => $city, 'products'=> $products]);
 
     }
