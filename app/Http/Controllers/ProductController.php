@@ -38,7 +38,7 @@ class ProductController extends Controller
 
         //get recommended products for the weather
         $products = Product::where('tag', $weather)->offset(0)->limit(2)->get();
-        $recommend = json_encode(['city' => $city, 'current_weather' => $weather, 'recommended_products'=>$products]);
+        $recommend = ['city' => $city, 'current_weather' => $weather, 'recommended_products'=>$products];
      
         return response()->json($recommend);
 
