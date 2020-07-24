@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Product;
+use App\Services\AllCities;
 use App\Services\City;
 use App\Services\Weather;
-use App\Services\AllCities;
 use Illuminate\Http\Request;
-
+use Illuminate\Validation\Rule;
 use Validator;
 
 class ProductController extends Controller
@@ -20,29 +20,34 @@ class ProductController extends Controller
     public function index(Weather $weather, Request $request)
     {
 
-        
-        $info ='naudokite tik tikrus miestų pavadinimus be lietiviškų rašmenų ar skaičių';
-
-
-        // check if city exsist in API
         $isCity = AllCities::check_city($request->city);
-        if($isCity == 'blogai'){
-            return view('home', [$info]);
-        }else               
-       
+        // dd($isCity);
+        // try {
+
+        $validator = Validator::make($request->all(),
+            [
+                'city' => [
+                    'required',
+                    Rule::in($isCity),
+                ],
+            ]
+        );
+        if ($validator->fails()){
+
+            return response()->json(['code' =>404, 'message' => 'END POINT NOT VALID']);
+        }
+
         // get original city name
-        $city = City::city($isCity);
+            $city = City::city($request->city);
 
         // get current weather for the location
-        $weather = Weather::currentWeather($isCity)->get('conditionCode');
+        $weather = Weather::currentWeather($request->city)->get('conditionCode');
 
         //get recommended products for the weather
         $products = Product::where('tag', $weather)->offset(0)->limit(2)->get();
-        $recommend = ['city' => $city, 'current_weather' => $weather, 'recommended_products'=>$products];
-     
-        return response()->json($recommend);
+        $recommend = ['city' => $city, 'current_weather' => $weather, 'recommended_products' => $products];
 
-        // return view('product.index', ['recommend'=>$recommend]);
+        return response()->json($recommend);
 
     }
 

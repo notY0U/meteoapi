@@ -28,7 +28,6 @@ services:
     ports:
       - "33063:3306"
     environment:
-      APP_DEBUG: true
       MYSQL_DATABASE: meteoapi
       MYSQL_USER: homestead
       MYSQL_PASSWORD: secret
