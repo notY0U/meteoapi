@@ -10,31 +10,23 @@ class AllCities
 
     public static function check_city($argument)
     {
-        
+
         $city_check = array_map(function ($array) {
-            return ['code' => $array['code'], 'name' =>$array['name']];
-            
+            return $array['code'];
+
         },
-        
-         Http::get('https://api.meteo.lt/v1/places/')->json());
-         $byCode = Arr::pluck($city_check, ['code']);
-        //  $byName = Arr::pluck($city_check, ['name']);
-        //  dd($byName);
-        if(in_array(strtolower($argument), $byCode)){
-            return $argument;
+            Http::get('https://api.meteo.lt/v1/places/')->json());
 
-        // }elseif(in_array(ucfirst($argument), $byName)){
-
+            return $city_check;
+        //
+        // 
+        // if (in_array(strtolower($argument), $city_check)) {
         //     return $argument;
 
-        }else
+        // } else {
+        //     return 'blogai';
+        // }
 
-        return 'blogai';
-        // return $city_check;
     }
-
-       
-
-
 
 }
