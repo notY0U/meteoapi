@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', ' © Lietuvos hidrometeorologijos tarnyba'),
+    'name' => env('APP_NAME', 'Laravel'),
 
     /*
     |--------------------------------------------------------------------------

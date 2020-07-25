@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Product;
+use App\Services\AllCities;
 use App\Services\City;
 use App\Services\Weather;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Validator;
 
 class ProductController extends Controller
@@ -15,32 +17,37 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index( Request $request,Weather $weather)
+    public function index(Weather $weather, Request $request)
     {
+
+        $isCity = AllCities::check_city($request->city);
+        // dd($isCity);
+        // try {
 
         $validator = Validator::make($request->all(),
             [
-                'city' => ['required', 'min:3', 'max:64'],
+                'city' => [
+                    'required',
+                    Rule::in($isCity),
+                ],
             ]
         );
-        if ($validator->fails()) {
-            $request->flash();
-            return redirect()->back()->withErrors($validator);
+        if ($validator->fails()){
+
+            return response()->json(['code' =>404, 'message' => 'END POINT NOT VALID']);
         }
 
-            $weather = Weather::currentWeather($request->city)->get('conditionCode');
-
+        // get original city name
             $city = City::city($request->city);
-            $products = Product::where('tag', $weather)->get()->toJson();
 
-            // dd($products);
+        // get current weather for the location
+        $weather = Weather::currentWeather($request->city)->get('conditionCode');
 
+        //get recommended products for the weather
+        $products = Product::where('tag', $weather)->offset(0)->limit(2)->get();
+        $recommend = ['city' => $city, 'current_weather' => $weather, 'recommended_products' => $products];
 
-            return view('product.index', ['weather' => $weather, 'city' => $city, 'products' => $products]);
-        // } else {
-
-        //     return view('product.start');
-        // }
+        return response()->json($recommend);
 
     }
 
