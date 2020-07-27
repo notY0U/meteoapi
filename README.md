@@ -1,6 +1,8 @@
-### Run on Google cloud run
+### HOSTED ON
 
-[![Run on Google Cloud](https://storage.googleapis.com/cloudrun/button.svg)](https://console.cloud.google.com/cloudshell/editor?shellonly=true&cloudshell_image=gcr.io/cloudrun/button&cloudshell_git_repo=https://github.com/notY0U/meteoapi.git)
+## https://meteoapi.jolitagraze.com/products/recommended
+
+endpoint: ?city={city in Lithuania}
 
 ## API Source data for weather taken from :
 
@@ -10,15 +12,6 @@
 
     !please note that product is data only for sample usage and cannot be trusted in real life as you might end-up walking with shorts in heavy snow.
     
-## No Hosting (yet)
-
- will update sometime soon
- 
-## To use the app(while not hosted):
-
-hosting in progrss
-
-
 ## Contributing
 
 Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
