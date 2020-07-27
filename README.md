@@ -16,17 +16,7 @@
  
 ## To use the app(while not hosted):
 
-you will need Homestead, or some localhost app
-Clone it or fork it, update your composer
-in your .env:
-change database name;
-generate key->
-in terminal `php artisan key:generate`
-migrations and seeds:
- `php artisan migrate:fresh`
- `php artisan db:seed`
- 
-local path 'your host'/meteoapi/public
+hosting in progrss
 
 
 ## Contributing
