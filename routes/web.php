@@ -21,6 +21,6 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route :: group ([ 'prefix' => 'products' ], function (){
+Route :: group ([ 'prefix' => 'products/recommended' ], function (){
     Route :: get ( '' , 'ProductController@index' ) -> name ( 'product.index' );
 });
