@@ -43,9 +43,11 @@ class ProductController extends Controller
         // get current weather for the location
         $weather = Weather::currentWeather($request->city)->get('conditionCode');
 
+        $products = Product::all()->filter(function ($product) use ($weather) {
+            return in_array($weather, $product->tags()->pluck('name')->toArray());
+        })->pluck('name')->take(2);
         //get recommended products for the weather
-        $products = Product::where('tag', $weather)->offset(0)->limit(2)->get();
-        $recommend = ['city' => $city, 'current_weather' => $weather, 'recommended_products' => $products];
+        $recommend = ['city' => $city, 'current_weather' => $weather, 'recommended_products' => $products, 'source data:' => 'Lietuvos hidrometeorologijos tarnyba'];
 
         return response()->json($recommend);
 
