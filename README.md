@@ -10,7 +10,8 @@ endpoint: ?city={city in Lithuania}
 
 ## The app will give you random clothing according to the current weather (1 hour intervals)
 
-    !please note that product is data only for sample usage and cannot be trusted in real life as you might end-up walking with shorts in heavy snow.
+    !please note that product is data only for sample usage and cannot be trusted in real life
+    as you might end-up walking with shorts in heavy snow.
     
 ## Contributing
 
