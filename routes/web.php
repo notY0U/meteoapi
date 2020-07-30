@@ -11,16 +11,10 @@ use Illuminate\Support\Facades\Route;
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
-*/
+ */
 
 Route::get('/', function () {
-    return view('home');
+    return redirect()->to('products/recommended');
 });
 
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
-
-Route :: group ([ 'prefix' => 'products/recommended' ], function (){
-    Route :: get ( '' , 'ProductController@index' ) -> name ( 'product.index' );
-});
+Route::get('products/recommended', 'ProductController@index')->name('product.index');
