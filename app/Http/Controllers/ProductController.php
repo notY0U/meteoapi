@@ -45,7 +45,7 @@ class ProductController extends Controller
 
         $products = Product::all()->filter(function ($product) use ($weather) {
             return in_array($weather, $product->tags()->pluck('name')->toArray());
-        })->pluck('name')->take(2);
+        })->take(2);
         //get recommended products for the weather
         $recommend = ['city' => $city, 'current_weather' => $weather, 'recommended_products' => $products, 'source data:' => 'Lietuvos hidrometeorologijos tarnyba'];
 
