@@ -7,6 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     protected $hidden = ['id', 'created_at', 'updated_at'];
+    // protected $casts = ['price' => 'double'];
+
+    public function getPriceAttribute(){
+     $price = (double) $this->attributes['price'];
+     return $price.' eur';
+    }
 
     public function tags()
     {

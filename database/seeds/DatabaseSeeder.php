@@ -41,18 +41,18 @@ class DatabaseSeeder extends Seeder
         }
         // seed for products
         foreach ($items as $key => $item) {
-            $prod = $faker->colorName . '-' . $key;
+            $prod = $faker->colorName . ' ' . $key;
             $product = Product::create([
                 'name' => $prod,
                 'sku' => Sku::sku($prod),
                 'price' => $faker->price(3, 200, false),
             ]);
-            $prodName =$product['name'];
-        $newItem=substr($prodName, strpos($prodName, '-')+1, strlen($prodName));
-        
-        $product->tags()->attach($items[$newItem]);
-        $product->save();
-    }
+            $prodName = $product['name'];
+            $newItem = substr($prodName, strpos($prodName, ' ') + 1, strlen($prodName));
+
+            $product->tags()->attach($items[$newItem]);
+            $product->save();
+        }
 
     }
 
