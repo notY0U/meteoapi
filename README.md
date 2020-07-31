@@ -34,8 +34,6 @@ open new terminal window and run commands:
     docker-compose exec php composer install
     docker-compose exec php /bin/sh
     php artisan key:generate
-    php artisan migrate:fresh
-    php artisan db:seed
 open app in your browser:
     
     localhost:8082
