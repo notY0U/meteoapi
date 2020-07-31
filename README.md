@@ -1,3 +1,47 @@
+### Localhost with docker
+create .env which should look like this:
+
+    APP_NAME=Laravel
+    APP_ENV=local
+    APP_KEY=
+    APP_DEBUG=true
+    APP_URL=http://localhost
+
+    LOG_CHANNEL=stack
+
+    DB_CONNECTION=mysql
+    DB_HOST=mysql
+    DB_PORT=3306
+    DB_DATABASE=meteoapi
+    DB_USERNAME=root
+    DB_PASSWORD=secret
+
+    BROADCAST_DRIVER=log
+    CACHE_DRIVER=file
+    QUEUE_CONNECTION=sync
+    SESSION_DRIVER=file
+    SESSION_LIFETIME=120
+
+clone repository
+!docker must be installed on your machine
+run commands in your terminal:
+
+    cd [local repository]
+    docker-compose up
+    
+open new terminal window and run commands:
+
+    docker-compose exec php php composer install
+    docker-compose exec php /bin/sh
+    php artisan key:generate
+    php artisan migrate:fresh
+    php artisan db:seed
+open app in your browser:
+    
+    localhost:8082
+
+endpoint: ?city={city in Lithuania}
+
 ### HOSTED ON
 
 ## https://meteoapi.jolitagraze.com/products/recommended
