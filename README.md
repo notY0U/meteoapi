@@ -31,7 +31,7 @@ run commands in your terminal:
     
 open new terminal window and run commands:
 
-    docker-compose exec php php composer install
+    docker-compose exec php composer install
     docker-compose exec php /bin/sh
     php artisan key:generate
     php artisan migrate:fresh
