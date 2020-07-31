@@ -42,11 +42,6 @@ open app in your browser:
 
 endpoint: ?city={city in Lithuania}
 
-### HOSTED ON
-
-## https://meteoapi.jolitagraze.com/products/recommended
-
-endpoint: ?city={city in Lithuania}
 
 ## API Source data for weather taken from :
 
