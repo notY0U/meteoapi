@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
             10 => 'moderate-snow', 11 => 'heavy-snow', 12 => 'fog', 13 => 'na'];
         //seed of products
         $items = [
-            'Umbrella' => [1, 5, 6, 7],
+            'Umbrella' => [5, 6, 7],
             'Hat' => [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
             'Dress' => [1, 2, 3, 4, 5, 6, 12, 13],
             'Shorts' => [1, 2, 3], 'Skirt' => [1, 2, 3, 4],
