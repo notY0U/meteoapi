@@ -22,8 +22,8 @@ create .env which should look like this:
     SESSION_DRIVER=file
     SESSION_LIFETIME=120
 
-clone repository
-!docker must be installed on your machine
+clone repository;
+!docker must be installed on your machine;
 run commands in your terminal:
 
     cd [local repository]
